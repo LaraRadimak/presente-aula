@@ -1,8 +1,10 @@
-# Presente
+# Registro Docente
 
 Aplicación para docentes: asistencia, cursos guardados, planilla y calificaciones.
 
-**Instalar en Android o iPhone:** https://lararadimak.github.io/presente-aula/
+**Abrir e instalar en Android o iPhone:** https://lararadimak.github.io/presente-aula/
+
+**Guía en español:** https://lararadimak.github.io/presente-aula/instalar.html
 
 La primera apertura requiere internet. Esperá a ver «Lista sin conexión» y agregala a la pantalla de inicio desde Chrome (Android) o Safari (iPhone). Después podés usarla sin internet.
 

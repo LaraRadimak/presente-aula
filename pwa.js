@@ -23,7 +23,7 @@ window.addEventListener('appinstalled',()=>{installPrompt=null;installButton.hid
 installButton.addEventListener('click',async()=>{
   if(installPrompt){await installPrompt.prompt();installPrompt=null;return}
   if(ios){instructions.textContent='En Safari, tocá Compartir y luego “Agregar a pantalla de inicio”. Activá “Abrir como app” si aparece esa opción. Una vez instalada y abierta, vas a poder usarla sin internet.'}
-  else if(location.protocol==='file:'||location.protocol==='about:'){instructions.textContent='Para instalarla en el celular, abrí la dirección segura de Presente una vez con internet. Después funcionará sin conexión.'}
+  else if(location.protocol==='file:'||location.protocol==='about:'){instructions.textContent='Para instalarla en el celular, abrí la dirección segura de Registro Docente una vez con internet. Después funcionará sin conexión.'}
   else{instructions.textContent='En el menú de tu navegador elegí “Instalar aplicación” o “Agregar a pantalla de inicio”. Abrila una vez y después podrás usarla sin internet.'}
   installDialog.showModal();
 });

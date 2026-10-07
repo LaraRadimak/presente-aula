@@ -1,5 +1,5 @@
-const CACHE='presente-v11';
-const ASSETS=['./','./index.html','./styles.css','./app.js','./history.js','./academic.js','./appearance.js','./pwa.js','./jszip.min.js','./pdf-classic.min.js','./pdf-classic.worker.min.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png'];
+const CACHE='registro-docente-v13';
+const ASSETS=['./','./index.html','./instalar.html','./styles.css','./app.js','./history.js','./academic.js','./appearance.js','./pwa.js','./jszip.min.js','./pdf-classic.min.js','./pdf-classic.worker.min.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',event=>{

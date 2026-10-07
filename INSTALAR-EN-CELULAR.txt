@@ -1,4 +1,4 @@
-PRESENTE EN ANDROID Y IPHONE
+REGISTRO DOCENTE EN ANDROID Y IPHONE
 
 Enlace para instalar: https://lararadimak.github.io/presente-aula/
 
@@ -8,14 +8,14 @@ Después de instalarla y abrirla una vez, funciona sin internet.
 ANDROID
 1. Abrí el enlace en Chrome.
 2. Tocá «Instalar aplicación» o, en el menú, «Agregar a pantalla de inicio».
-3. Abrí el icono Presente. Esperá a ver «Lista sin conexión» arriba.
+3. Abrí el icono Registro Docente. Esperá a ver «Lista sin conexión» arriba.
 4. Activá modo avión para comprobar que la aplicación abre y permite tomar lista.
 
 IPHONE
 1. Abrí el enlace en Safari.
 2. Tocá Compartir y «Agregar a pantalla de inicio».
 3. Activá «Abrir como app» si aparece y tocá Agregar.
-4. Abrí el icono Presente. Esperá a ver «Lista sin conexión» arriba.
+4. Abrí el icono Registro Docente. Esperá a ver «Lista sin conexión» arriba.
 5. Activá modo avión para comprobar que la aplicación abre y permite tomar lista.
 
 Los alumnos, las asistencias y las calificaciones se guardan en cada dispositivo. No se sincronizan automáticamente entre la computadora y los teléfonos.

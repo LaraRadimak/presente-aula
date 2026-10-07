@@ -1,6 +1,6 @@
 {
-  "name": "Presente · Asistencia docente",
-  "short_name": "Presente",
+  "name": "Registro Docente · Asistencia y calificaciones",
+  "short_name": "Registro Docente",
   "description": "Registro de asistencia para docentes, por curso y cuatrimestre.",
   "start_url": "./index.html",
   "scope": "./",
