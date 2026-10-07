@@ -4,22 +4,22 @@ const STORAGE_KEY = 'presente-aula-v2';
 const OLD_STORAGE_KEY = 'presente-aula-v1';
 const today = new Date();
 const localDate = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-let state = { roster: [], course: '', year: today.getFullYear(), modality: '', subject: '', semester: '1', date: localDate, mode: 'all', records: {}, dayRosters: {}, notes: [], source: '', needsReimport: false, courses: [], currentCourseId: null };
+let state = { roster: [], course: '', year: today.getFullYear(), modality: '', subject: '', semester: '1', date: localDate, mode: 'all', records: {}, dayRosters: {}, notes: [], averageSelections: {}, source: '', needsReimport: false, courses: [], currentCourseId: null };
 let pendingSource = '';
 let toastTimer;
 
 function toast(message,duration=3500) { const el=$('toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),duration); }
 function courseId(){return `curso-${Date.now()}-${Math.random().toString(36).slice(2,7)}`}
-function courseSnapshot(){return {id:state.currentCourseId,course:state.course,year:state.year,modality:state.modality,subject:state.subject,semester:state.semester,roster:state.roster,records:state.records,dayRosters:state.dayRosters,notes:state.notes,source:state.source,needsReimport:state.needsReimport}}
+function courseSnapshot(){return {id:state.currentCourseId,course:state.course,year:state.year,modality:state.modality,subject:state.subject,semester:state.semester,roster:state.roster,records:state.records,dayRosters:state.dayRosters,notes:state.notes,averageSelections:state.averageSelections,source:state.source,needsReimport:state.needsReimport}}
 function save() { try { if(!state.currentCourseId)state.currentCourseId=courseId();const index=state.courses.findIndex(c=>c.id===state.currentCourseId);const snapshot=courseSnapshot();if(index>=0)state.courses[index]=snapshot;else state.courses.push(snapshot);localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); } catch { toast('No se pudo guardar en este navegador.'); } }
-function loadCourse(id){const course=state.courses.find(c=>c.id===id);if(!course)return;state.currentCourseId=id;state.course=course.course||'';state.year=Number(course.year)||today.getFullYear();state.modality=course.modality||'';state.subject=course.subject||'';state.semester=course.semester||'1';state.roster=Array.isArray(course.roster)?course.roster:[];state.records=course.records||{};state.dayRosters=course.dayRosters||{};state.notes=Array.isArray(course.notes)?course.notes:[];state.source=course.source||'';state.needsReimport=!!course.needsReimport;state.mode='all';save();render()}
+function loadCourse(id){const course=state.courses.find(c=>c.id===id);if(!course)return;state.currentCourseId=id;state.course=course.course||'';state.year=Number(course.year)||today.getFullYear();state.modality=course.modality||'';state.subject=course.subject||'';state.semester=course.semester||'1';state.roster=Array.isArray(course.roster)?course.roster:[];state.records=course.records||{};state.dayRosters=course.dayRosters||{};state.notes=Array.isArray(course.notes)?course.notes:[];state.averageSelections=course.averageSelections||{};state.source=course.source||'';state.needsReimport=!!course.needsReimport;state.mode='all';save();render()}
 function load() {
   try {
     const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
     if(saved&&Array.isArray(saved.courses)){
       state={...state,...saved};
       const current=state.courses.find(c=>c.id===state.currentCourseId)||state.courses[0];
-      if(current){state.currentCourseId=current.id;state.course=current.course||'';state.year=Number(current.year)||today.getFullYear();state.modality=current.modality||'';state.subject=current.subject||'';state.semester=current.semester||'1';state.roster=current.roster||[];state.records=current.records||{};state.dayRosters=current.dayRosters||{};state.notes=Array.isArray(current.notes)?current.notes:[];state.source=current.source||'';state.needsReimport=!!current.needsReimport}
+      if(current){state.currentCourseId=current.id;state.course=current.course||'';state.year=Number(current.year)||today.getFullYear();state.modality=current.modality||'';state.subject=current.subject||'';state.semester=current.semester||'1';state.roster=current.roster||[];state.records=current.records||{};state.dayRosters=current.dayRosters||{};state.notes=Array.isArray(current.notes)?current.notes:[];state.averageSelections=current.averageSelections||{};state.source=current.source||'';state.needsReimport=!!current.needsReimport}
       return;
     }
     const old=JSON.parse(localStorage.getItem(OLD_STORAGE_KEY)||'null');
@@ -112,7 +112,7 @@ function replaceRoster(names,source){if(!names.length){toast('No hay nombres par
 function mark(name,value){const d={...day()};d[name]=d[name]===value&&state.mode==='all'?null:value;if(d[name]===null)delete d[name];setDay(d);render()}
 function mode(value){state.mode=value;if(value==='absent'){const d={...day()};for(const name of state.roster)if(!d[name])d[name]='P';setDay(d);toast('Todos figuran presentes. Marcá A en los ausentes.')}save();render()}
 function showCourses(){save();$('courseList').innerHTML=state.courses.map(c=>`<button type="button" class="course-choice ${c.id===state.currentCourseId?'current':''}" data-course-id="${escapeHTML(c.id)}"><strong>${escapeHTML(c.course||'Curso sin nombre')}</strong><small>${escapeHTML(String(c.year||today.getFullYear()))} · ${escapeHTML(c.modality||'Modalidad sin definir')} · ${escapeHTML(c.subject||'Materia sin definir')} · ${c.roster?.length||0} alumnos</small></button>`).join('');$('courseDialog').showModal()}
-function newCourse(){if(state.roster.length||state.course.trim()||state.modality.trim()||state.subject.trim()){save();state.currentCourseId=courseId();state.course='';state.year=today.getFullYear();state.modality='';state.subject='';state.semester='1';state.roster=[];state.records={};state.dayRosters={};state.notes=[];state.source='';state.needsReimport=false;state.mode='all';save()}$('courseDialog').close();$('searchInput').value='';render();toast('Nuevo curso listo para cargar.')}
+function newCourse(){if(state.roster.length||state.course.trim()||state.modality.trim()||state.subject.trim()){save();state.currentCourseId=courseId();state.course='';state.year=today.getFullYear();state.modality='';state.subject='';state.semester='1';state.roster=[];state.records={};state.dayRosters={};state.notes=[];state.averageSelections={};state.source='';state.needsReimport=false;state.mode='all';save()}$('courseDialog').close();$('searchInput').value='';render();toast('Nuevo curso listo para cargar.')}
 
 function xml(text){const doc=new DOMParser().parseFromString(text,'application/xml');if(doc.querySelector('parsererror'))throw new Error('El archivo tiene una estructura no válida.');return doc}
 function descendants(node,name){return [...node.getElementsByTagName('*')].filter(el=>el.localName===name)}
