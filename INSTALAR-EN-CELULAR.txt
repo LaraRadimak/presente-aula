@@ -1,6 +1,8 @@
 PRESENTE EN ANDROID Y IPHONE
 
-La instalación inicial necesita una conexión a internet y un enlace HTTPS de Presente.
+Enlace para instalar: https://lararadimak.github.io/presente-aula/
+
+La instalación inicial necesita una conexión a internet.
 Después de instalarla y abrirla una vez, funciona sin internet.
 
 ANDROID
@@ -17,5 +19,6 @@ IPHONE
 5. Activá modo avión para comprobar que la aplicación abre y permite tomar lista.
 
 Los alumnos, las asistencias y las calificaciones se guardan en cada dispositivo. No se sincronizan automáticamente entre la computadora y los teléfonos.
+No hace falta pulsar Guardar para cada asistencia o calificación: se guarda automáticamente al marcar o escribir. Para conservar los datos, no borres los datos de la aplicación o del navegador en ese dispositivo.
 
 El archivo ZIP contiene la aplicación web para publicarla, pero no es un instalador de Android ni de iPhone por sí solo.
